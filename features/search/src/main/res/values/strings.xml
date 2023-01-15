@@ -1,0 +1,14 @@
+<resources>
+  <string name="search_hint">search for events</string>
+  <string name="event_type_dropdown_menu_hint">Type</string>
+  <string name="venue_dropdown_menu_hint">Venue</string>
+  <string name="initial_search_text_label">use the above search field to find an event.Use filter for faster search</string>
+  <string name="search_remotely_text_label">look for an event from remote server</string>
+  <string name="no_search_results_text_label">sorry nothing found :(</string>
+  <string name="a_sad_event">no event</string>
+  <string name="derpy_event">derpy</string>
+  <string name="events_near_you">Near you</string>
+  <string name="search">Search</string>
+  <string name="search_screen_label">Find your Event</string>
+  <string name="an_error_occurred">An error occurred.Please try again</string>
+</resources>

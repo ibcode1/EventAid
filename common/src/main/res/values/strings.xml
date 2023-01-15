@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="image_description">An image of an event near you</string>
+  <string name="an_error_occurred">An error occurred. Please try again later.</string>
+  <string name="share">Share</string>
+    <string name="performerImage_description">An Image of a Performer</string>
+</resources>

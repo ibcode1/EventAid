@@ -1,0 +1,282 @@
+{
+  "events": [
+    {
+      "type": "mls",
+      "id": 5825090,
+      "datetime_utc": "2023-02-25T11:30:00",
+      "venue": {
+        "state": "CA",
+        "name_v2": "Rose Bowl",
+        "postal_code": "91103",
+        "name": "Rose Bowl",
+        "links": [],
+        "timezone": "America/Los_Angeles",
+        "url": "https://seatgeek.com/venues/rose-bowl/tickets",
+        "score": 0.58,
+        "location": {
+          "lat": 34.159,
+          "lon": -118.168
+        },
+        "address": "1001 Rose Bowl Drive",
+        "country": "US",
+        "has_upcoming_events": true,
+        "num_upcoming_events": 2,
+        "city": "Pasadena",
+        "slug": "rose-bowl",
+        "extended_address": "Pasadena, CA 91103",
+        "id": 45,
+        "popularity": 0,
+        "access_method": {
+          "method": "QRCODE",
+          "created_at": "2015-10-21T20:59:53Z",
+          "employee_only": false
+        },
+        "metro_code": 803,
+        "capacity": 92542,
+        "display_location": "Pasadena, CA"
+      },
+      "datetime_tbd": false,
+      "performers": [
+        {
+          "type": "mls",
+          "name": "LA Galaxy",
+          "image": "https://seatgeek.com/images/performers-landscape/la-galaxy-c3683b/5864/huge.jpg",
+          "id": 5864,
+          "images": {
+            "huge": "https://seatgeek.com/images/performers-landscape/la-galaxy-c3683b/5864/huge.jpg"
+          },
+          "divisions": [
+            {
+              "taxonomy_id": 1050100,
+              "short_name": "Western",
+              "display_name": "Western Conference",
+              "display_type": "Conference",
+              "division_level": 1,
+              "slug": "western-conference"
+            }
+          ],
+          "has_upcoming_events": true,
+          "primary": true,
+          "stats": {
+            "event_count": 4
+          },
+          "taxonomies": [
+            {
+              "id": 1000000,
+              "name": "sports",
+              "parent_id": null,
+              "document_source": {
+                "source_type": "ELASTIC",
+                "generation_type": "FULL"
+              },
+              "rank": 0
+            },
+            {
+              "id": 1050000,
+              "name": "soccer",
+              "parent_id": 1000000,
+              "document_source": {
+                "source_type": "ELASTIC",
+                "generation_type": "FULL"
+              },
+              "rank": 0
+            },
+            {
+              "id": 1050100,
+              "name": "mls",
+              "parent_id": 1050000,
+              "document_source": {
+                "source_type": "ELASTIC",
+                "generation_type": "FULL"
+              },
+              "rank": 0
+            }
+          ],
+          "image_attribution": "SeatGeek - 2022 (2000 X 2000)",
+          "url": "https://seatgeek.com/la-galaxy-tickets",
+          "score": 0.42,
+          "slug": "la-galaxy",
+          "home_venue_id": 52,
+          "short_name": "LA Galaxy",
+          "num_upcoming_events": 4,
+          "colors": {
+            "all": [
+              "#004B87",
+              "#FFCD00",
+              "#004B87"
+            ],
+            "iconic": "#004B87",
+            "primary": [
+              "#004B87",
+              "#FFCD00"
+            ]
+          },
+          "image_license": "SeatGeek - 2022 (2000 X 2000)",
+          "popularity": 0,
+          "home_team": true,
+          "location": {
+            "lat": 33.8646,
+            "lon": -118.261
+          },
+          "image_rights_message": ""
+        },
+        {
+          "type": "mls",
+          "name": "Los Angeles Football Club",
+          "image": "https://seatgeek.com/images/performers-landscape/los-angeles-football-club-9e7a44/651932/huge.jpg",
+          "id": 651932,
+          "images": {
+            "huge": "https://seatgeek.com/images/performers-landscape/los-angeles-football-club-9e7a44/651932/huge.jpg"
+          },
+          "divisions": [
+            {
+              "taxonomy_id": 1050100,
+              "short_name": "Western",
+              "display_name": "Western Conference",
+              "display_type": "Conference",
+              "division_level": 1,
+              "slug": "western-conference"
+            }
+          ],
+          "has_upcoming_events": true,
+          "stats": {
+            "event_count": 4
+          },
+          "taxonomies": [
+            {
+              "id": 1000000,
+              "name": "sports",
+              "parent_id": null,
+              "document_source": {
+                "source_type": "ELASTIC",
+                "generation_type": "FULL"
+              },
+              "rank": 0
+            },
+            {
+              "id": 1050000,
+              "name": "soccer",
+              "parent_id": 1000000,
+              "document_source": {
+                "source_type": "ELASTIC",
+                "generation_type": "FULL"
+              },
+              "rank": 0
+            },
+            {
+              "id": 1050100,
+              "name": "mls",
+              "parent_id": 1050000,
+              "document_source": {
+                "source_type": "ELASTIC",
+                "generation_type": "FULL"
+              },
+              "rank": 0
+            }
+          ],
+          "image_attribution": "SeatGeek - 2022 (2000 X 2000)",
+          "url": "https://seatgeek.com/los-angeles-football-club-tickets",
+          "score": 0.36,
+          "slug": "los-angeles-football-club",
+          "home_venue_id": 432601,
+          "short_name": "LAFC",
+          "num_upcoming_events": 4,
+          "colors": {
+            "all": [
+              "#181818",
+              "#C39E6D",
+              "#181818"
+            ],
+            "iconic": "#C39E6D",
+            "primary": [
+              "#181818",
+              "#C39E6D"
+            ]
+          },
+          "image_license": "SeatGeek - 2022 (2000 X 2000)",
+          "popularity": 0,
+          "away_team": true,
+          "location": {
+            "lat": 34.0126,
+            "lon": -118.284
+          },
+          "image_rights_message": ""
+        }
+      ],
+      "is_open": false,
+      "links": [],
+      "datetime_local": "2023-02-25T03:30:00",
+      "time_tbd": true,
+      "short_title": "LAFC at LA Galaxy",
+      "visible_until_utc": "2023-02-26T08:00:00",
+      "stats": {
+        "listing_count": 542,
+        "average_price": 209,
+        "lowest_price_good_deals": 70,
+        "lowest_price": 70,
+        "highest_price": 1555,
+        "visible_listing_count": 522,
+        "dq_bucket_counts": [
+          55,
+          158,
+          132,
+          44,
+          37,
+          51,
+          62,
+          0
+        ],
+        "median_price": 146,
+        "lowest_sg_base_price": 48,
+        "lowest_sg_base_price_good_deals": 48
+      },
+      "taxonomies": [
+        {
+          "id": 1000000,
+          "name": "sports",
+          "parent_id": null,
+          "rank": 0
+        },
+        {
+          "id": 1050000,
+          "name": "soccer",
+          "parent_id": 1000000,
+          "rank": 0
+        },
+        {
+          "id": 1050100,
+          "name": "mls",
+          "parent_id": 1050000,
+          "rank": 0
+        }
+      ],
+      "url": "https://seatgeek.com/los-angeles-football-club-at-la-galaxy-tickets/mls/2023-02-25-3-30-am/5825090",
+      "score": 0.596,
+      "announce_date": "2022-09-27T00:00:00",
+      "created_at": "2022-09-27T17:29:51",
+      "date_tbd": false,
+      "title": "Los Angeles Football Club at LA Galaxy",
+      "popularity": 0.726,
+      "description": "",
+      "status": "normal",
+      "access_method": {
+        "method": "QRCODE",
+        "created_at": "2015-10-21T20:59:53Z",
+        "employee_only": false
+      },
+      "event_promotion": null,
+      "announcements": {},
+      "conditional": false,
+      "enddatetime_utc": null,
+      "themes": [],
+      "domain_information": []
+    }
+  ],
+  "meta": {
+    "total": 1,
+    "took": 4,
+    "page": 1,
+    "per_page": 1,
+    "geolocation": null
+  }
+}

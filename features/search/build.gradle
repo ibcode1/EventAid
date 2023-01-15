@@ -1,0 +1,18 @@
+apply from: "$rootProject.projectDir/android-library.gradle"
+
+android {
+    sourceSets {
+        androidTest {
+            java.srcDir project(":common").file("src/androidTest/java/com/ib/eventaid/common/HiltTestRunner")
+            java.srcDir project(":common").file("src/androidTest/java/com/ib/eventaid/common/TestApplication")
+        }
+    }
+
+}
+
+dependencies {
+    implementation project(":common")
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_eventsnearyou"
+    app:startDestination="@id/eventsNearYouFragment">
+
+    <fragment
+        android:id="@+id/eventsNearYouFragment"
+        android:name="com.ib.eventaid.eventsnearyou.presentation.EventsNearYouFragment"
+        android:label="@string/events_near_you_screen_label"
+        tools:layout="@layout/fragment_events_near_you">
+        <deepLink app:uri="eventaid://eventsnearyou" />
+
+        <action
+            android:id="@+id/action_eventsNearYou_to_details"
+            app:destination="@+id/eventDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/eventDetailsFragment"
+        android:name="com.ib.eventaid.eventsnearyou.presentation.eventdetails.EventDetailsFragment"
+        android:label="@string/event_details_screen_label"
+        tools:layout="@layout/fragment_details">
+
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+</navigation>

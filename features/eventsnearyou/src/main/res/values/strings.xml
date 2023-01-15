@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="an_error_occurred">An error occurred. Please try again later.</string>
+    <string name="events_near_you_screen_label">Events near you</string>
+
+    <string name="events_near_you">Near you</string>
+    <string name="event_details_screen_label">Event details</string>
+    <string name="image_of_event">Image of event</string>
+    <string name="average_price">Average Price</string>
+    <string name="dq_bucket_counts">dqBucketCounts</string>
+    <string name="highest_price">Highest Price</string>
+    <string name="lowest_price">Lowest Price</string>
+    <string name="lowest_price_good_deals">Lowest Price Good Deals</string>
+    <string name="median_price">Median Price</string>
+    <string name="listing_count">Listing Count</string>
+    <string name="lowest_sg_base_price_good_deals"> lowestSgBasePriceGoodDeals</string>
+    <string name="performers">Perfomer</string>
+    <string name="header_description">Description</string>
+    <string name="add_to_favorites">Save</string>
+</resources>

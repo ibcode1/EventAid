@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="performerImage_description">An Image of a performer</string>
+    <string name="performers_near_you_screen_label">performers</string>
+    <string name="performer_details_screen_label">Performer Details</string>
+</resources>

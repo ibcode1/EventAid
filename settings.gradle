@@ -1,0 +1,23 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+/*dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}*/
+rootProject.name = "EventAid"
+include ':app'
+include ':logging'
+include ':features:eventsnearyou'
+include ':common'
+include ':features:search'
+include ':features:onboarding'
+include ':features:sharing'
+include ':features:performers'

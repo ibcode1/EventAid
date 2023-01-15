@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_performers"
+    app:startDestination="@id/performerFragment">
+
+    <fragment
+        android:id="@+id/performerFragment"
+        android:name="com.ib.eventaid.performers.presentation.PerformerFragment"
+        android:label="@string/performers_near_you_screen_label"
+        tools:layout="@layout/fragment_performers">
+        <deepLink app:uri="eventaid://performers"/>
+
+        <action
+            android:id="@+id/action_performers_to_details"
+            app:destination="@+id/performerDetailsFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/performerDetailsFragment"
+        android:name="com.ib.eventaid.performers.presentation.performerdetails.PerformerDetailsFragment"
+        android:label="@string/performer_details_screen_label"
+        tools:layout="@layout/fragment_performer_details">
+
+    <argument
+        android:name="id"
+        app:argType="integer"/>
+    </fragment>
+</navigation>

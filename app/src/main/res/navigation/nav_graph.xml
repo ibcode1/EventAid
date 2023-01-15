@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<navigation android:id="@+id/nav_graph"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/nav_onboarding">
+
+  <include app:graph="@navigation/nav_onboarding" />
+  <include app:graph="@navigation/nav_eventsnearyou" />
+  <include app:graph="@navigation/nav_search" />
+  <include app:graph="@navigation/nav_sharing" />
+  <include app:graph = "@navigation/nav_performers"/>
+
+  <!--<fragment
+    android:id="@+id/search"
+    android:name="com.ib.eventaid.search.presentation.SearchFragment"
+    android:label="@string/search_screen_label"
+    tools:layout="@layout/fragment_search">
+  </fragment>-->
+</navigation>
