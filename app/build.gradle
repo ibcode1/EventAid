@@ -4,6 +4,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'kotlin-android-extensions'
 
+
 android {
     namespace 'com.ib.eventaid'
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -78,6 +79,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
     implementation 'com.google.code.gson:gson:2.10'
+
 
 
     // Testing Dependencies
