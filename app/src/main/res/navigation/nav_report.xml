@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_report"
+    app:startDestination="@id/reportDetailFragment">
+
+    <fragment
+        android:id="@+id/reportDetailFragment"
+        android:name="com.ib.eventaid.report.presentation.ReportDetailFragment"
+        android:label="@string/send_report"
+        tools:layout="@layout/fragment_report_detail" />
+</navigation>
