@@ -9,6 +9,7 @@ data class Event(
     val dateTimeLocal: LocalDateTime,
     val visibleUntilUtc:LocalDateTime,
     val media: Media,
-    val performer: List<Performer>
-    //val image: List<String>
+    //val performer:Int
+    //val performer: List<Performer>
+    //val image: List<String>,
 )

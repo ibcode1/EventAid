@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -23,6 +24,7 @@ import com.ib.eventaid.search.R
 import com.ib.eventaid.search.databinding.FragmentSearchBinding
 import com.ib.eventaid.search.usecases.GetSearchFilters
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.filtered_search_widget.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -36,6 +38,7 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
 
     private val viewModel: SearchFragmentViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,7 +64,12 @@ class SearchFragment : Fragment() {
     }
 
     private fun createAdapter(): EventsAdapter {
-        return EventsAdapter()
+        return EventsAdapter().apply {
+            setOnEventClickListener{eventId ->
+                val action = SearchFragmentDirections.actionSearchedEventToDetails(eventId)
+                findNavController().navigate(action)
+            }
+        }
     }
 
 

@@ -32,7 +32,7 @@ object ApiParameters {
     const val VENUE = "venues"
     const val TYPE = "type"
     const val TAXONOMIES = "taxonomies"
-    const val PERFORMER = "performer"
+    const val PERFORMER = "performers.id"
     const val SCOPE ="scope"
 
 

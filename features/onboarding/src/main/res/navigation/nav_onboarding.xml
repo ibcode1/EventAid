@@ -9,5 +9,9 @@
     android:id="@+id/onboardingFragment"
     android:name="com.ib.eventaid.onboarding.presentation.OnboardingFragment"
     android:label="@string/onboarding_screen_label"
-    tools:layout="@layout/fragment_onboarding" />
+    tools:layout="@layout/fragment_onboarding">
+  <deepLink app:uri="eventaid://onboarding/"/>
+
+  </fragment>
+
 </navigation>

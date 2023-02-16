@@ -1,15 +1,17 @@
 package com.ib.eventaid.eventsnearyou.presentation
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -44,6 +46,7 @@ class EventsNearYouFragment : Fragment() {
 
     setupUI()
     requestInitialEventsList()
+    floatToOnboarding()
   }
 
   private fun setupUI() {
@@ -59,6 +62,20 @@ class EventsNearYouFragment : Fragment() {
         findNavController().navigate(action)
       }
     }
+  }
+
+  private fun floatToOnboarding(){
+    binding.fab.setOnClickListener {
+      navigateToNewNav()
+    }
+  }
+
+  private fun navigateToNewNav() {
+    val deepLink = NavDeepLinkRequest.Builder
+      .fromUri("eventaid://navigate/".toUri())
+      .build()
+
+    findNavController().navigate(deepLink)
   }
 
   private fun setupRecyclerView(eventsNearYouAdapter: EventsAdapter) {
@@ -104,6 +121,7 @@ class EventsNearYouFragment : Fragment() {
     handleFailures(state.failure)
   }
 
+
   private fun handleNoMoreEventsNearby(noMoreEventsNearby: Boolean) {
     // Show a warning message and a prompt for the user to try a different
     // distance or postcode
@@ -127,6 +145,11 @@ class EventsNearYouFragment : Fragment() {
 
   private fun requestInitialEventsList() {
     viewModel.onEvent(EventsNearYouEvent.RequestInitialEventsList)
+  }
+
+  override fun onResume() {
+    super.onResume()
+    _binding
   }
 
   override fun onDestroyView() {

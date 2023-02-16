@@ -17,4 +17,10 @@
     android:icon="@drawable/ic_star_24dp"
     android:title="@string/stars"
       app:showAsAction="ifRoom"/>
+
+  <item
+    android:id="@+id/nav_report"
+    android:icon="@drawable/baseline_report_24"
+    android:title="@string/report"
+    app:showAsAction="ifRoom"/>
 </menu>

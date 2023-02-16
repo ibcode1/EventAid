@@ -1,5 +1,6 @@
 package com.ib.eventaid.common.data.cache
 
+import com.ib.eventaid.common.data.cache.model.cachedEvent.CacheEventsWithPerformerCrossRef
 import com.ib.eventaid.common.data.cache.model.cachedEvent.CachePerformerAggregate
 import com.ib.eventaid.common.data.cache.model.cachedEvent.CachedEventAggregate
 import com.ib.eventaid.common.data.cache.model.cachedEvent.CachedEventPerformer
@@ -11,7 +12,6 @@ interface Cache {
     suspend fun storeVenues(venue: List<CachedVenue>)
     suspend fun getVenue(venueId:Int):CachedVenue
 
-
     suspend fun storeTaxonomies(taxonomy: List<CachedTaxonomy>)
     suspend fun getTaxonomy(taxonomyId: List<Int>):CachedTaxonomy
 
@@ -22,11 +22,13 @@ interface Cache {
     suspend fun storePerformer(performer: List<CachedEventPerformer>)
     suspend fun getPerformer(performerId: Int):CachedEventPerformer
 
-    //suspend fun getEventPerformers():Flowable<List<CachedEventPerformer>>
+    //suspend fun getEventPerformers(performerId: List<Int>):List<CachedEventPerformer>
 
     fun getNearbyEvents(): Flowable<List<CachedEventAggregate>>
     suspend fun storeNearbyEvents(events: List<CachedEventAggregate>)
     suspend fun getEvent(eventId:Int):CachedEventAggregate
+
+    fun getPerformerEvents(performerId: Int):Flowable<List<CachedEventAggregate>>
 
 
     suspend fun getAllTypes(): List<String>

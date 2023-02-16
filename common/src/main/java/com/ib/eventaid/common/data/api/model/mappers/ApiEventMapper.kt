@@ -33,7 +33,7 @@ class ApiEventMapper @Inject constructor(
             description = apiEvent.description.orEmpty(),
             performers = apiEvent.performers?.map { apiPerformerMapper.mapToDomain(it) }.orEmpty(),
             stats = apiStatsMapper.mapToDomain(apiEvent.stats),
-            //taxonomy = apiEvent.taxonomies?.map { apiTaxonomyMapper.mapToDomain(it) }.orEmpty(),
+            taxonomy = apiEvent.taxonomies?.map { apiTaxonomyMapper.mapToDomain(it) }.orEmpty(),
             venue = apiVenueMapper.mapToDomain(apiEvent.venue)
         )
     }

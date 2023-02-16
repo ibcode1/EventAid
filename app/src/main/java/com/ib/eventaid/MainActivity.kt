@@ -40,7 +40,8 @@ class MainActivity : AppCompatActivity() {
             topLevelDestinationIds = setOf(
                 com.ib.eventaid.onboarding.R.id.onboardingFragment,
                 com.ib.eventaid.eventsnearyou.R.id.eventsNearYouFragment,
-                com.ib.eventaid.search.R.id.searchFragment
+                com.ib.eventaid.search.R.id.searchFragment,
+                R.id.reportDetailFragment
             )
         )
     }

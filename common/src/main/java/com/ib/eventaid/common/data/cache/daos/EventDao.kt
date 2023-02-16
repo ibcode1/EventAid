@@ -2,6 +2,7 @@ package com.ib.eventaid.common.data.cache.daos
 
 import androidx.room.*
 import com.ib.eventaid.common.data.cache.model.cachedEvent.*
+import com.ib.eventaid.common.data.cache.model.cachedTaxonomy.CachedTaxonomy
 import io.reactivex.Flowable
 
 @Dao
@@ -20,7 +21,8 @@ abstract class EventDao {
         event: CachedEventWithDetails,
         image: List<CachedImage>,
         performers: List<CachedEventPerformer>,
-        stats: CachedStats
+        stats: CachedStats,
+        taxonomy: List<CachedTaxonomy>
     )
 
     suspend fun insertEventsWithDetails(eventAggregates: List<CachedEventAggregate>) {
@@ -29,15 +31,17 @@ abstract class EventDao {
                 eventAggregate.event,
                 eventAggregate.images,
                 eventAggregate.performers,
-                eventAggregate.stats
+                eventAggregate.stats,
+                eventAggregate.taxonomy
             )
         }
     }
 
-
     @Query("SELECT * FROM events")
     abstract suspend fun getPerformers(): List<CachedEventAggregate>
 
+    @Query("SELECT * FROM events WHERE performerId IS :performerId")
+    abstract fun getPerformerEvents(performerId:Int):Flowable<List<CachedEventAggregate>>
 
     @Query("SELECT DISTINCT type FROM events")
     abstract suspend fun getAllTypes(): List<String>

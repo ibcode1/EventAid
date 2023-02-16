@@ -21,7 +21,7 @@ data class ApiEvent(
     @field:Json(name = "description") val description: String?,
     @field:Json(name = "domain_information") val domainInformation: List<Any>?,
     @field:Json(name = "enddatetime_utc") val enddatetimeUtc: Any?,
-    @field:Json(name = "event_promotion") val eventPromotion: Any?,
+    @field:Json(name = "event_promotion") val eventPromotion: ApiEventPromotion?,
     @field:Json(name = "general_admission") val generalAdmission: Boolean?,
     @field:Json(name = "home_team") val homeTeam: Any?,
     @field:Json(name = "id") val id: Int?,

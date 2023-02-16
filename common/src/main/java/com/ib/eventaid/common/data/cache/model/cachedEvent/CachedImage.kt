@@ -24,25 +24,22 @@ data class CachedImage(
     val eventId: Int,
     //val performerId: List<Int>,
     val huge: String,
-    val x320: String
+    val banner: String
 ) {
     companion object {
-        fun fromDomain(
-            eventId: Int,
-            //performerId: List<Int>,
-            image: Media.Image): CachedImage {
-            val (huge, x320) = image
+        fun fromDomain(eventId: Int, image: Media.Image): CachedImage {
+            val (huge, banner) = image
 
             return CachedImage(
                 //performerId = performerId,
                 eventId = eventId,
                 huge = huge,
-                x320 = x320
+                banner = banner
             )
         }
     }
 
-    fun toDomain(): Media.Image = Media.Image(huge, x320)
+    fun toDomain(): Media.Image = Media.Image(huge, banner)
 }
 
 

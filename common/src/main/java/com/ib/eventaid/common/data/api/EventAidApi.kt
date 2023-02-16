@@ -13,17 +13,11 @@ interface EventAidApi {
         @Query(ApiParameters.PER_PAGE) pageSize:Int,
         @Query(ApiParameters.POSTAL_CODE) postcode:String,
         @Query(ApiParameters.RANGE) maxRange:String,
-        @Query(ApiParameters.CLIENT_ID) client_id:String
+        @Query(ApiParameters.CLIENT_ID) client_id:String,
     ): ApiPaginatedEvents
 
     @GET(ApiConstants.PERFORMERS_ENDPOINT)
-    suspend fun getPerformers(
-        @Query(ApiParameters.PAGE) pageToLoad:Int,
-        @Query(ApiParameters.PER_PAGE) pageSize:Int,
-        @Query(ApiParameters.POSTAL_CODE) postcode:String,
-        @Query(ApiParameters.RANGE) maxRange:String,
-        @Query(ApiParameters.CLIENT_ID) client_id:String
-    ):ApiPaginatedEvents
+    suspend fun getPerformers():ApiPaginatedEvents
             //ApiPaginatedPerformers
 
     @GET(ApiConstants.EVENTS_ENDPOINT)
@@ -39,4 +33,12 @@ interface EventAidApi {
         @Query(ApiParameters.RANGE) maxRange: String,
         @Query(ApiParameters.CLIENT_ID) client_id:String
     ):ApiPaginatedEvents
+
+    @GET(ApiConstants.EVENTS_ENDPOINT)
+    suspend fun getEvents(
+        @Query(ApiParameters.PERFORMER) performerId:Int,
+        @Query(ApiParameters.PAGE) pageToLoad: Int,
+        @Query(ApiParameters.PER_PAGE) pageSize: Int,
+        @Query(ApiParameters.CLIENT_ID) client_id: String
+    ): ApiPaginatedEvents
 }

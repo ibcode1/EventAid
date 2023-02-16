@@ -32,8 +32,6 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchFragmentViewModel @Inject constructor(
   private val uiEventMapper: UiEventMapper,
-  //private val uiVenueMapper: UiVenueMapper,
-  //private val uiPerformerMapper: UiPerformerMapper,
   private val searchEventsRemotely: SearchEventsRemotely,
   private val searchEvents: SearchEvents,
   private val getSearchFilters: GetSearchFilters,

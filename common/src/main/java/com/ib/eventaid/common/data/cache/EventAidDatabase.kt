@@ -3,10 +3,7 @@ package com.ib.eventaid.common.data.cache
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.ib.eventaid.common.data.cache.daos.EventDao
-import com.ib.eventaid.common.data.cache.daos.PerformerDao
-import com.ib.eventaid.common.data.cache.daos.TaxonomyDao
-import com.ib.eventaid.common.data.cache.daos.VenueDao
+import com.ib.eventaid.common.data.cache.daos.*
 import com.ib.eventaid.common.data.cache.model.cachedEvent.*
 import com.ib.eventaid.common.data.cache.model.cachedTaxonomy.CachedTaxonomy
 import com.ib.eventaid.common.data.cache.model.cachedVenue.CachedVenue
@@ -23,7 +20,7 @@ import com.ib.eventaid.common.data.cache.model.cachedVenue.CachedVenue
         CacheEventsWithPerformerCrossRef::class,
         CachedStats::class,
     ],
-    version = 4
+    version = 8
 )
 @TypeConverters(Converters::class)
 abstract class EventAidDatabase : RoomDatabase() {

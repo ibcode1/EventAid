@@ -21,7 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class OnboardingFragment: Fragment() {
 
-
   private val binding get() = _binding!!
   private var _binding: FragmentOnboardingBinding? = null
 

@@ -19,6 +19,16 @@ fun ImageView.setImage(url: String) {
         .into(this)
 }
 
+fun ImageView.setImageRound(url:String){
+    Glide.with(this.context)
+        .load(url.ifEmpty { null })
+        .error(R.drawable.events_placeholder)
+        .centerCrop()
+        .circleCrop()
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .into(this)
+}
+
 inline fun CoroutineScope.createExceptionHandler(
     message: String,
     crossinline action: (throwable: Throwable) -> Unit

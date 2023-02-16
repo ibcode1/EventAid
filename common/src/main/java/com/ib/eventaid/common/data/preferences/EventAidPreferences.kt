@@ -8,6 +8,7 @@ import com.ib.eventaid.common.data.preferences.PreferencesConstant.KEY_POSTCODE
 import com.ib.eventaid.common.data.preferences.PreferencesConstant.KEY_TOKEN
 import com.ib.eventaid.common.data.preferences.PreferencesConstant.KEY_TOKEN_EXPIRATION_TIME
 import com.ib.eventaid.common.data.preferences.PreferencesConstant.KEY_TOKEN_TYPE
+import com.ib.eventaid.common.data.preferences.PreferencesConstant.PERFORMER_ID
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -65,12 +66,20 @@ class EventAidPreferences @Inject constructor(
     }
 
     override fun getMaxDistanceAllowedToGetEvents(): String {
-        return preferences.getString(KEY_MAX_RANGE,"").orEmpty()
+        return preferences.getString(KEY_MAX_RANGE,"0").orEmpty()
     }
 
 
     override fun putMaxDistanceAllowedToGetEvents(distance: String) {
         edit { putString(KEY_MAX_RANGE, distance + "mi") }
+    }
+
+    override fun getPerformerId(): Int {
+        return preferences.getInt(PERFORMER_ID,0)
+    }
+
+    override fun putPerformerId(performerId: Int) {
+        edit { putInt(PERFORMER_ID,performerId) }
     }
 
     private inline fun edit(block: SharedPreferences.Editor.() -> Unit){

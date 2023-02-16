@@ -9,35 +9,40 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.ib.eventaid.common.presentation.model.PerformersAdapter
+import com.ib.eventaid.common.presentation.InfiniteScrollListeners
+import com.ib.eventaid.common.presentation.UIPerformerEvents
+import com.ib.eventaid.common.presentation.model.PerformerEventsAdapter
 import com.ib.eventaid.common.utils.setImage
-import com.ib.eventaid.performers.R
 import com.ib.eventaid.performers.databinding.FragmentPerformerDetailsBinding
 import com.ib.eventaid.performers.presentation.performerdetails.model.UIPerformerDetailed
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class PerformerDetailsFragment:Fragment() {
+class PerformerDetailsFragment : Fragment() {
 
-    companion object{
+    companion object {
         const val PERFORMER_ID = "id"
+        const val EVENT_ID = "eventId"
     }
 
     private val binding get() = _binding!!
-    private var _binding:FragmentPerformerDetailsBinding? = null
+    private var _binding: FragmentPerformerDetailsBinding? = null
 
-    private val viewModel:PerformerDetailsFragmentViewModel by viewModels()
+    private val viewModel: PerformerDetailsFragmentViewModel by viewModels()
 
-    private var performerId:Int? = null
+    private var performerId: Int? = null
+    private var eventId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         performerId = requireArguments().getInt(PERFORMER_ID)
+        eventId = requireArguments().getInt(EVENT_ID)
     }
 
     override fun onCreateView(
@@ -52,53 +57,100 @@ class PerformerDetailsFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        subscribeToStateUpdates()
         val event = PerformerDetailsEvent.LoadPerformerDetails(performerId!!)
         viewModel.handleEvent(event)
         setupUi()
     }
 
     private fun subscribeToStateUpdates() {
-        viewLifecycleOwner.lifecycleScope.launch{
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.state.collect { state ->
-                    when(state) {
-                        is PerformerDetailsViewState.Loading -> { displayLoading() }
-                        is PerformerDetailsViewState.Failure ->{displayError()}
-                        is PerformerDetailsViewState.PerformerDetails ->{displayPerformerDetails(state.performer)}
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.perfState.collect { state ->
+                    when (state) {
+                        is PerformerDetailsViewState.Loading -> {
+                            displayLoading()
+                        }
+                        is PerformerDetailsViewState.Failure -> {
+                            displayError()
+                        }
+                        is PerformerDetailsViewState.PerformerDetails -> {
+                            displayPerformer(state.performer)
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun displayPerformerDetails(performer: UIPerformerDetailed) {
+    private fun displayPerformer(performer:UIPerformerDetailed) {
         binding.title.text = performer.name
         binding.numberOfEvents.text = performer.numUpcomingEvents.toString()
         binding.image.setImage(performer.image)
-        setupUi()
     }
 
-    private fun setupUi(){
+    private fun createInfiniteScrollListener(
+        layoutManager: LinearLayoutManager
+    ): RecyclerView.OnScrollListener {
+        return object : InfiniteScrollListeners(
+            layoutManager,
+            PerformerDetailsFragmentViewModel.UI_PAGE_SIZE
+        ) {
+            override fun loadMoreItems() { requestMorePerformerEvents() }
+            override fun isLoading(): Boolean = viewModel.isLoadingMoreEvents
+            override fun isLastPage(): Boolean = viewModel.isLastPage
+        }
+    }
+
+    private fun requestMorePerformerEvents() {
+        viewModel.handleEvent(PerformerDetailsEvent.RequestMoreEvents(performerId!!))
+    }
+
+    private fun subscribeToViewStateUpdates(adapter: PerformerEventsAdapter) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.state.collect {
+                    displayPerformerDetails(it,adapter)
+                }
+            }
+        }
+    }
+
+    private fun displayPerformerDetails(state: PerformerEventsViewState,adapter: PerformerEventsAdapter) {
+        adapter.submitList(state.uiPerformerEvents)
+        binding.performerRecyclerView.layoutManager=LinearLayoutManager(requireContext()
+            ,LinearLayoutManager.VERTICAL,false)
+        binding.performerRecyclerView.adapter = adapter
+
+    }
+
+    private fun setupUi() {
         val adapter = createAdapter()
         setupRecyclerView(adapter)
+        subscribeToViewStateUpdates(PerformerEventsAdapter())
+        subscribeToStateUpdates()
     }
 
-    private fun createAdapter():PerformersAdapter{
-        return PerformersAdapter()
+    private fun createAdapter(): PerformerEventsAdapter {
+        return PerformerEventsAdapter()
     }
 
-    private fun setupRecyclerView(performersAdapter: PerformersAdapter){
+    private fun setupRecyclerView(performerEventsAdapter: PerformerEventsAdapter) {
         binding.performerRecyclerView.apply {
-            adapter = performersAdapter
-            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+            adapter = performerEventsAdapter
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
+            addOnScrollListener(createInfiniteScrollListener(layoutManager as LinearLayoutManager))
         }
     }
 
     private fun displayError() {
         //binding.group.isVisible = false
-        Snackbar.make(requireView(), com.ib.eventaid.common.R.string.an_error_occurred, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(
+            requireView(),
+            com.ib.eventaid.common.R.string.an_error_occurred,
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     private fun displayLoading() {

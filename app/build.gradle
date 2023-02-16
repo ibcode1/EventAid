@@ -99,6 +99,7 @@ dependencies {
     implementation project(":features:eventsnearyou")
     implementation project(":features:search")
     implementation project(":features:onboarding")
+    implementation project(":features:newnav")
     implementation project(":features:sharing")
     implementation project(":features:performers")
     implementation project(":logging")

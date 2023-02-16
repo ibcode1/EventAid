@@ -10,7 +10,7 @@ import com.ib.eventaid.common.presentation.UIEvent
 import com.ib.eventaid.common.presentation.mappers.UiEventMapper
 import com.ib.eventaid.common.presentation.model.Event
 import com.ib.eventaid.common.utils.createExceptionHandler
-import com.ib.eventaid.eventsnearyou.domain.usecases.GetEvents
+import com.ib.eventaid.common.domain.usecases.GetEvents
 import com.ib.eventaid.eventsnearyou.domain.usecases.RequestNextPageOfEvents
 import com.ib.logging.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel

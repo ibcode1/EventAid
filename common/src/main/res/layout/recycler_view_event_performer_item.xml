@@ -1,22 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp">
+    android:orientation="horizontal"
+    android:paddingLeft="5dp"
+    android:paddingTop="10dp"
+    android:paddingRight="5dp"
+    android:paddingBottom="10dp">
 
-    <TextView
-        android:id="@+id/titleView"
-        android:layout_width="0dp"
+    <ImageView
+        android:id="@+id/performerImage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="5dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitStart" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Title" />
+        android:layout_marginEnd="5dp"
+        android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/performerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginBottom="5dp"
+            android:textStyle="bold"
+            tools:text="Name" />
+
+        <TextView
+            android:id="@+id/numUpcomingEvents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:textSize="12sp"
+            tools:text="2" />
+    </LinearLayout>
+</LinearLayout>

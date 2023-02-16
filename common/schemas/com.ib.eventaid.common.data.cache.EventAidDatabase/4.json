@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 4,
-    "identityHash": "647a28e2dae476d648406c5ef33bce56",
+    "identityHash": "ab59742c2955d4ad312f9ab52d3306f7",
     "entities": [
       {
         "tableName": "images",
@@ -66,7 +66,7 @@
       },
       {
         "tableName": "events",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`eventId` INTEGER NOT NULL, `venueId` INTEGER NOT NULL, `title` TEXT NOT NULL, `type` TEXT NOT NULL, `description` TEXT NOT NULL, `averagePrice` INTEGER NOT NULL, `highestPrice` INTEGER NOT NULL, `listingCount` INTEGER NOT NULL, `lowestPrice` INTEGER NOT NULL, `medianPrice` INTEGER NOT NULL, `visibleListingCount` INTEGER NOT NULL, `lowestPriceGoodDeals` INTEGER NOT NULL, `lowestSgBasePrice` INTEGER NOT NULL, `lowestSgBasePriceGoodDeals` INTEGER NOT NULL, `dateTimeLocal` TEXT NOT NULL, `visibleUntilUtc` TEXT NOT NULL, `venueName` TEXT NOT NULL, PRIMARY KEY(`eventId`), FOREIGN KEY(`venueId`) REFERENCES `venues`(`venueId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`eventId` INTEGER NOT NULL, `venueId` INTEGER NOT NULL, `performerId` INTEGER NOT NULL, `title` TEXT NOT NULL, `type` TEXT NOT NULL, `description` TEXT NOT NULL, `averagePrice` INTEGER NOT NULL, `highestPrice` INTEGER NOT NULL, `listingCount` INTEGER NOT NULL, `lowestPrice` INTEGER NOT NULL, `medianPrice` INTEGER NOT NULL, `visibleListingCount` INTEGER NOT NULL, `lowestPriceGoodDeals` INTEGER NOT NULL, `lowestSgBasePrice` INTEGER NOT NULL, `lowestSgBasePriceGoodDeals` INTEGER NOT NULL, `dateTimeLocal` TEXT NOT NULL, `visibleUntilUtc` TEXT NOT NULL, `venueName` TEXT NOT NULL, PRIMARY KEY(`eventId`), FOREIGN KEY(`venueId`) REFERENCES `venues`(`venueId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "eventId",
@@ -77,6 +77,12 @@
           {
             "fieldPath": "venueId",
             "columnName": "venueId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "performerId",
+            "columnName": "performerId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -460,17 +466,7 @@
           ],
           "autoGenerate": false
         },
-        "indices": [
-          {
-            "name": "index_CacheEventsWithPerformerCrossRef_performerId",
-            "unique": false,
-            "columnNames": [
-              "performerId"
-            ],
-            "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_CacheEventsWithPerformerCrossRef_performerId` ON `${TABLE_NAME}` (`performerId`)"
-          }
-        ],
+        "indices": [],
         "foreignKeys": []
       },
       {
@@ -579,7 +575,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '647a28e2dae476d648406c5ef33bce56')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ab59742c2955d4ad312f9ab52d3306f7')"
     ]
   }
 }

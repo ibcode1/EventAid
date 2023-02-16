@@ -1,9 +1,7 @@
 package com.ib.eventaid.common.data.cache
 
-import com.ib.eventaid.common.data.cache.daos.EventDao
-import com.ib.eventaid.common.data.cache.daos.PerformerDao
-import com.ib.eventaid.common.data.cache.daos.TaxonomyDao
-import com.ib.eventaid.common.data.cache.daos.VenueDao
+import com.ib.eventaid.common.data.cache.daos.*
+import com.ib.eventaid.common.data.cache.model.cachedEvent.CacheEventsWithPerformerCrossRef
 import com.ib.eventaid.common.data.cache.model.cachedEvent.CachePerformerAggregate
 import com.ib.eventaid.common.data.cache.model.cachedEvent.CachedEventAggregate
 import com.ib.eventaid.common.data.cache.model.cachedEvent.CachedEventPerformer
@@ -16,7 +14,7 @@ class RoomCache @Inject constructor(
     private val eventDao: EventDao,
     private val taxonomyDao: TaxonomyDao,
     private val venueDao: VenueDao,
-    private val performerDao: PerformerDao
+    private val performerDao: PerformerDao,
 ) : Cache {
     override suspend fun storeVenues(venue: List<CachedVenue>) {
         venueDao.insert(venue)
@@ -56,6 +54,11 @@ class RoomCache @Inject constructor(
 
     override suspend fun getEvent(eventId: Int): CachedEventAggregate {
         return eventDao.getEvent(eventId)
+    }
+
+
+    override fun getPerformerEvents(performerId: Int): Flowable<List<CachedEventAggregate>> {
+        return eventDao.getPerformerEvents(performerId)
     }
 
     override suspend fun getAllTypes(): List<String> {

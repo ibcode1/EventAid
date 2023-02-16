@@ -4,5 +4,5 @@ data class UIPerformerDetailed(
     val id:Int,
     val name:String,
     val numUpcomingEvents:Int,
-    val image:String
+    val image:String,
 )

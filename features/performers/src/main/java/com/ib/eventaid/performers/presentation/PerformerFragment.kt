@@ -110,7 +110,7 @@ class PerformerFragment : Fragment() {
     }
 
     private fun handleNoMorePerformers(noMorePerformers: Boolean) {
-        ////ddddddddd
+        ////d
     }
 
     private fun handleFailures(failure: Event<Throwable>?) {

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 5,
-    "identityHash": "647a28e2dae476d648406c5ef33bce56",
+    "identityHash": "9af7748e4cb737ecf18c0337987fda45",
     "entities": [
       {
         "tableName": "images",
@@ -66,7 +66,7 @@
       },
       {
         "tableName": "events",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`eventId` INTEGER NOT NULL, `venueId` INTEGER NOT NULL, `title` TEXT NOT NULL, `type` TEXT NOT NULL, `description` TEXT NOT NULL, `averagePrice` INTEGER NOT NULL, `highestPrice` INTEGER NOT NULL, `listingCount` INTEGER NOT NULL, `lowestPrice` INTEGER NOT NULL, `medianPrice` INTEGER NOT NULL, `visibleListingCount` INTEGER NOT NULL, `lowestPriceGoodDeals` INTEGER NOT NULL, `lowestSgBasePrice` INTEGER NOT NULL, `lowestSgBasePriceGoodDeals` INTEGER NOT NULL, `dateTimeLocal` TEXT NOT NULL, `visibleUntilUtc` TEXT NOT NULL, `venueName` TEXT NOT NULL, PRIMARY KEY(`eventId`), FOREIGN KEY(`venueId`) REFERENCES `venues`(`venueId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`eventId` INTEGER NOT NULL, `venueId` INTEGER NOT NULL, `performerId` TEXT NOT NULL, `title` TEXT NOT NULL, `type` TEXT NOT NULL, `description` TEXT NOT NULL, `averagePrice` INTEGER NOT NULL, `highestPrice` INTEGER NOT NULL, `listingCount` INTEGER NOT NULL, `lowestPrice` INTEGER NOT NULL, `medianPrice` INTEGER NOT NULL, `visibleListingCount` INTEGER NOT NULL, `lowestPriceGoodDeals` INTEGER NOT NULL, `lowestSgBasePrice` INTEGER NOT NULL, `lowestSgBasePriceGoodDeals` INTEGER NOT NULL, `dateTimeLocal` TEXT NOT NULL, `visibleUntilUtc` TEXT NOT NULL, `venueName` TEXT NOT NULL, PRIMARY KEY(`eventId`), FOREIGN KEY(`venueId`) REFERENCES `venues`(`venueId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "eventId",
@@ -78,6 +78,12 @@
             "fieldPath": "venueId",
             "columnName": "venueId",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "performerId",
+            "columnName": "performerId",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -437,8 +443,8 @@
         "foreignKeys": []
       },
       {
-        "tableName": "CacheEventsWithPerformerCrossRef",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`eventId` INTEGER NOT NULL, `performerId` INTEGER NOT NULL, PRIMARY KEY(`eventId`, `performerId`))",
+        "tableName": "events_performers",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`eventId` INTEGER NOT NULL, `performerId` INTEGER NOT NULL, PRIMARY KEY(`eventId`, `performerId`), FOREIGN KEY(`eventId`) REFERENCES `events`(`eventId`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`performerId`) REFERENCES `performers`(`performerId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "eventId",
@@ -462,16 +468,48 @@
         },
         "indices": [
           {
-            "name": "index_CacheEventsWithPerformerCrossRef_performerId",
+            "name": "index_events_performers_eventId",
+            "unique": false,
+            "columnNames": [
+              "eventId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_events_performers_eventId` ON `${TABLE_NAME}` (`eventId`)"
+          },
+          {
+            "name": "index_events_performers_performerId",
             "unique": false,
             "columnNames": [
               "performerId"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_CacheEventsWithPerformerCrossRef_performerId` ON `${TABLE_NAME}` (`performerId`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_events_performers_performerId` ON `${TABLE_NAME}` (`performerId`)"
           }
         ],
-        "foreignKeys": []
+        "foreignKeys": [
+          {
+            "table": "events",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "eventId"
+            ],
+            "referencedColumns": [
+              "eventId"
+            ]
+          },
+          {
+            "table": "performers",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "performerId"
+            ],
+            "referencedColumns": [
+              "performerId"
+            ]
+          }
+        ]
       },
       {
         "tableName": "stats",
@@ -579,7 +617,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '647a28e2dae476d648406c5ef33bce56')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9af7748e4cb737ecf18c0337987fda45')"
     ]
   }
 }

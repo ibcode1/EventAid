@@ -13,12 +13,13 @@ interface EventRepository {
     suspend fun requestMoreEvents(pageToLoad: Int, numberOfItems: Int): PaginatedEvents
     suspend fun storeEvents(events: List<EventWithDetails>)
 
+    suspend fun getPerformerEvents(performerId:Int):Flowable<List<Event>>
+    suspend fun requestMorePerformerEvents(performerId: Int,pageToLoad: Int, numberOfItems: Int):PaginatedEvents
+
     suspend fun getEventTypes(): List<String>
     suspend fun getEvent(eventId: Int): EventWithDetails
-
-    //fun getEventVenues(): List<Venue>
-    //suspend fun getEventPerformers(eventId:Int): List<Performer>
     fun searchCachedEventsBy(searchParameters: SearchParameters): Flowable<SearchResults>
+
 
     suspend fun searchEventsRemotely(
         pageToLoad: Int,

@@ -10,32 +10,22 @@ class UiEventDetailsMapper @Inject constructor() :UiMapper<EventWithDetails,UIEv
         return UIEventDetailed(
             id = input.id,
             title = input.title,
-            performers = input.details.performers,
             description = input.details.description,
-            averagePrice = input.details.stats.averagePrice,
-            highestPrice = input.details.stats.highestPrice,
-            listingCount = input.details.stats.listingCount,
-            lowestPrice = input.details.stats.lowestPrice,
-            medianPrice = input.details.stats.medianPrice,
+            performer = input.details.performers,
+            date = input.dateTimeLocal,
+            type = listOf(input.type),
+            city = input.details.venue.address.city,
+            capacity = input.details.venue.info.capacity,
+            score = input.details.venue.info.venueScore,
+//            highestPrice = input.details.stats.highestPrice,
+//            listingCount = input.details.stats.listingCount,
+//            lowestPrice = input.details.stats.lowestPrice,
+//            medianPrice = input.details.stats.medianPrice,
             image = input.media.getFirstSmallestAvailableImage(),
-            //taxonomy = input.details.taxonomy.map { it.name }
+            venue = input.details.venue.name,
+            taxonomy = input.details.taxonomy.map { it.name },
+            address = input.details.venue.address.address1 + ", "+ input.details.venue.address.address2,
+            price = "$"+input.details.stats.lowestSgBasePriceGoodDeals.toString() + " - " + "$"+input.details.stats.highestPrice.toString()
         )
     }
-
-    /*private fun parsePerformer(apiPerformer: EventWithDetails):Performer{
-        return Performer(
-            awayTeam = apiPerformer.details.performers.isEmpty(),
-            hasUpcomingEvents = apiPerformer.details.performers.isEmpty(),
-            homeTeam = apiPerformer.details.performers.isEmpty(),
-            id = apiPerformer.details.performers.size,
-            image = apiPerformer.details.performers.toString(),
-            name = apiPerformer.details.performers.toString(),
-            numUpcomingEvents = apiPerformer.details.performers.size,
-            popularity = apiPerformer.details.performers.size,
-            score = apiPerformer.details.performers.size.toDouble(),
-            slug = apiPerformer.details.performers.toString(),
-            type = apiPerformer.details.performers.toString(),
-            url = apiPerformer.details.performers.toString()
-        )
-    }*/
 }

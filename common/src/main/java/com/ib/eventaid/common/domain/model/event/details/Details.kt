@@ -7,7 +7,7 @@ import com.ib.eventaid.common.domain.model.venue.Venue
 data class Details(
     val description: String,
     val stats: Stats,
-    //val taxonomy: List<Taxonomy>,
+    val taxonomy: List<Taxonomy>,
     val venue: Venue,
     val performers: List<Performer>
 )

@@ -6,14 +6,12 @@ import com.ib.eventaid.common.data.api.model.mappers.ApiEventMapper
 import com.ib.eventaid.common.data.api.model.mappers.ApiPaginationMapper
 import com.ib.eventaid.common.data.cache.Cache
 import com.ib.eventaid.common.data.cache.model.cachedEvent.CachedEventAggregate
-import com.ib.eventaid.common.data.cache.model.cachedEvent.CachedEventPerformer
 import com.ib.eventaid.common.data.cache.model.cachedVenue.CachedVenue
 import com.ib.eventaid.common.data.preferences.Preferences
 import com.ib.eventaid.common.domain.NetworkException
 import com.ib.eventaid.common.domain.model.event.Event
 import com.ib.eventaid.common.domain.model.event.details.EventWithDetails
 import com.ib.eventaid.common.domain.model.pagination.PaginatedEvents
-import com.ib.eventaid.common.domain.model.performer.Performer
 import com.ib.eventaid.common.domain.model.search.SearchParameters
 import com.ib.eventaid.common.domain.model.search.SearchResults
 import com.ib.eventaid.common.domain.repositories.EventRepository
@@ -35,7 +33,7 @@ class SeatGeekEventRepository @Inject constructor(
         return cache.getNearbyEvents()
             .distinctUntilChanged()
             .map { eventList ->
-                eventList.map { it.event.toEventDomain(it.images, it.performers) }
+                eventList.map { it.event.toEventDomain(it.images) }
             }
     }
 
@@ -63,25 +61,66 @@ class SeatGeekEventRepository @Inject constructor(
         }
     }
 
+
     override suspend fun storeEvents(events: List<EventWithDetails>) {
         val venue = events.map { CachedVenue.fromDomain(it.details.venue) }
+
         cache.storeVenues(venue)
         cache.storeNearbyEvents(events.map { CachedEventAggregate.fromDomain(it) })
     }
+
+    override suspend fun getPerformerEvents(performerId: Int): Flowable<List<Event>> {
+        return cache.getPerformerEvents(performerId)
+            .distinctUntilChanged()
+            .map {eventList ->
+                eventList.map {
+                    it.event.toEventDomain(it.images) } }
+    }
+
+    override suspend fun requestMorePerformerEvents(
+        performerId: Int,
+        pageToLoad: Int,
+        numberOfItems: Int
+    ): PaginatedEvents {
+
+        //val performerId = preferences.getPerformerId()
+
+        try {
+            val (apiEvents, apiPagination) = api.getEvents(
+                performerId,
+                pageToLoad,
+                numberOfItems,
+                client)
+            return PaginatedEvents(
+                apiEvents?.map {
+                    apiEventMapper.mapToDomain(it)
+                }.orEmpty(),
+                apiPaginationMapper.mapToDomain(apiPagination))
+
+        } catch (exception: HttpException) {
+            throw NetworkException(exception.message ?: "code ${exception.code()}")
+        }
+    }
+
 
     override suspend fun getEventTypes(): List<String> {
         return cache.getAllTypes()
     }
 
     override suspend fun getEvent(eventId: Int): EventWithDetails {
-        val (event, image, performers, stats) = cache.getEvent(eventId)
+        val (event,
+            image,
+            performers,
+            stats,
+            taxonomy
+        ) = cache.getEvent(eventId)
         val venue = cache.getVenue(event.venueId)
-
         return event.toDomain(
             venue,
             performers,
+            taxonomy,
             stats,
-            image
+            image,
         )
     }
 
@@ -93,12 +132,13 @@ class SeatGeekEventRepository @Inject constructor(
             .map { eventList ->
                 eventList.map {
                     it.event.toEventDomain(
-                        it.images, it.performers
+                        it.images,
                     )
                 }
             }
             .map { SearchResults(it, searchParameters) }
     }
+
 
     override suspend fun searchEventsRemotely(
         pageToLoad: Int,

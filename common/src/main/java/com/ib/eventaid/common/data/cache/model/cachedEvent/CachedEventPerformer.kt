@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.ib.eventaid.common.domain.model.event.details.EventWithDetails
 import com.ib.eventaid.common.domain.model.performer.Performer
 
 @Entity(
@@ -13,7 +12,7 @@ import com.ib.eventaid.common.domain.model.performer.Performer
 data class CachedEventPerformer(
     @PrimaryKey
     val performerId: Int,
-    val eventId: Int =0,
+    val eventId: Int=0,
     val name: String,
     val awayTeam: Boolean,
     val hasUpcomingEvents: Boolean,
@@ -48,7 +47,7 @@ data class CachedEventPerformer(
             )
         }
 
-        fun fromEventDomain(domainModel: Performer,eventId:Int):CachedEventPerformer{
+        fun fromEventDomain(eventId: Int,domainModel: Performer):CachedEventPerformer{
             return CachedEventPerformer(
                 performerId = domainModel.id,
                 name = domainModel.name,

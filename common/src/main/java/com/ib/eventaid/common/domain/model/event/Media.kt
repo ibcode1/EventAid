@@ -15,7 +15,7 @@ data class Media(
 
     data class Image(
         val huge: String,
-        val x320: String
+        val banner: String
         //huge is smaller by the way.Don't know why they named it so.lol
     ) {
 
@@ -26,7 +26,7 @@ data class Media(
         fun getSmallestAvailableImage(): String {
             return when {
                 isValidImage(huge) -> huge
-                isValidImage(x320) -> x320
+                isValidImage(banner) -> banner
                 else -> NO_SIZE_AVAILABLE
             }
         }

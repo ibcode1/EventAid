@@ -9,4 +9,6 @@ object PreferencesConstant {
 
     const val KEY_POSTCODE = "postcode"
     const val KEY_MAX_RANGE = "maxDistance"
+
+    const val PERFORMER_ID = "performerId"
 }

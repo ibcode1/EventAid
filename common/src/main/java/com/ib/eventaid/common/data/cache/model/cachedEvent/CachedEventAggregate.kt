@@ -3,6 +3,7 @@ package com.ib.eventaid.common.data.cache.model.cachedEvent
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
+import com.ib.eventaid.common.data.cache.model.cachedTaxonomy.CachedTaxonomy
 import com.ib.eventaid.common.domain.model.event.details.EventWithDetails
 
 data class CachedEventAggregate(
@@ -14,14 +15,8 @@ data class CachedEventAggregate(
     )
     val images: List<CachedImage>,
     @Relation(
-        entity = CachedEventPerformer::class,
         parentColumn = "eventId",
-        entityColumn = "performerId",
-        associateBy = Junction(
-            CacheEventsWithPerformerCrossRef::class,
-            parentColumn = "eventId",
-            entityColumn = "performerId"
-        )
+        entityColumn = "eventId",
     )
     val performers: List<CachedEventPerformer>,
     @Relation(
@@ -29,6 +24,11 @@ data class CachedEventAggregate(
         entityColumn = "eventId"
     )
     val stats: CachedStats,
+    @Relation(
+        parentColumn = "eventId",
+        entityColumn = "eventId",
+    )
+    val taxonomy:List<CachedTaxonomy>
 ) {
     companion object {
         fun fromDomain(eventWithDetails: EventWithDetails): CachedEventAggregate {
@@ -38,9 +38,13 @@ data class CachedEventAggregate(
                     CachedImage.fromDomain(eventWithDetails.id, it)
                 },
                 performers = eventWithDetails.details.performers.map {
-                    CachedEventPerformer.fromEventDomain(it, eventWithDetails.id)
+                    CachedEventPerformer.fromEventDomain(eventWithDetails.id,it)
                 },
-                stats = CachedStats.fromDomain(eventWithDetails.id, eventWithDetails.details.stats)
+                stats = CachedStats.fromDomain(eventWithDetails.id, eventWithDetails.details.stats),
+
+                taxonomy = eventWithDetails.details.taxonomy.map {
+                    CachedTaxonomy.fromDomain(eventWithDetails.id,it)
+                }
             )
         }
     }

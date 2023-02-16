@@ -1,10 +1,15 @@
 package com.ib.eventaid.eventsnearyou.presentation.eventdetails
 
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.view.*
+import androidx.annotation.RawRes
 import androidx.core.net.toUri
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -13,9 +18,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.airbnb.lottie.LottieProperty
+import com.airbnb.lottie.model.KeyPath
 import com.google.android.material.snackbar.Snackbar
-import com.ib.eventaid.common.presentation.UIEventPerformer
-import com.ib.eventaid.common.presentation.UIPerformer
 import com.ib.eventaid.common.presentation.model.EventPerformerAdapter
 import com.ib.eventaid.common.utils.setImage
 import com.ib.eventaid.eventsnearyou.R
@@ -23,6 +28,7 @@ import com.ib.eventaid.eventsnearyou.databinding.FragmentDetailsBinding
 import com.ib.eventaid.eventsnearyou.presentation.eventdetails.model.UIEventDetailed
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 
 @AndroidEntryPoint
 class EventDetailsFragment : Fragment() {
@@ -36,6 +42,8 @@ class EventDetailsFragment : Fragment() {
 
     private val viewModel: EventDetailsFragmentViewModel by viewModels()
     private var eventId: Int? = null
+
+    private var eventPerformerAdapter = EventPerformerAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,8 +70,10 @@ class EventDetailsFragment : Fragment() {
         subscribeToStateUpdates()
         val event = EventDetailsEvent.LoadEventDetails(eventId!!)
         viewModel.handleEvent(event)
-        setupUI()
+
+
     }
+
 
     private fun addShareMenu() {
         val menuHost: MenuHost = requireActivity()
@@ -99,16 +109,15 @@ class EventDetailsFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
                     when (state) {
-//                        is EventDetailsViewState.Loading -> {
-//                            displayLoading()
-//                        }
-//                        is EventDetailsViewState.Failure -> {
-//                            displayError()
-//                        }
+                        is EventDetailsViewState.Loading -> {
+                            displayLoading()
+                        }
+                        is EventDetailsViewState.Failure -> {
+                            displayError()
+                        }
                         is EventDetailsViewState.EventDetails -> {
                             displayEventDetails(state.event)
                         }
-                        else -> {}
                     }
                 }
             }
@@ -117,41 +126,78 @@ class EventDetailsFragment : Fragment() {
 
 
     private fun displayEventDetails(eventDetails: UIEventDetailed) {
-        //binding.group.isVisible = true
+
+        stopAnimation()
+        eventPerformerAdapter.submitList(eventDetails.performer)
+        binding.performersList.layoutManager = LinearLayoutManager(requireContext()
+            ,LinearLayoutManager.VERTICAL, false)
+        binding.performersList.adapter = eventPerformerAdapter
+
+        binding.scrollView.isVisible = true
         binding.title.text = eventDetails.title
-        binding.description.text = eventDetails.description
+        binding.venueName.text = eventDetails.venue
+        binding.venueAddress.text = eventDetails.address
+        binding.venueState.text = eventDetails.city
+        binding.venueCapacity.text = if (eventDetails.capacity.toString() == "0") {
+            "N/A"
+        } else {
+            eventDetails.capacity.toString()
+        }
+
+        binding.dateTime.text = if (eventDetails.date.toString() < LocalDateTime.now().toString()) {
+            "Completed on ${eventDetails.date.toString().replace("T", " ")}"
+        } else {
+            eventDetails.date.toString().replace("T", " ")
+        }.toString()
+
+        binding.ticket.text = eventDetails.price
         binding.image.setImage(eventDetails.image)
-//        binding.averagePrice.text = getText(eventDetails.averagePrice)
-//        binding.highestPrice.text = getText(eventDetails.highestPrice)
-//        binding.lowestPrice.text = getText(eventDetails.lowestPrice)
-
+        binding.backdrop.setImage(eventDetails.image)
+        binding.ratingValue.text = eventDetails.score.toString()
+        binding.eventTaxonomies.text = eventDetails.taxonomy.toString()
+            .replace("[", "")
+            .replace("]", "")
+            .replace("_", " ")
+            .replace("_", " ")
     }
 
-    private fun setupUI() {
-        val adapter = createAdapter()
-        setupRecyclerView(adapter)
-    }
-
-    private fun createAdapter(): EventPerformerAdapter {
-        return EventPerformerAdapter()
-    }
-
-    private fun setupRecyclerView(eventPerformerAdapter: EventPerformerAdapter) {
-        binding.performersList.apply {
-            adapter = eventPerformerAdapter
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            setHasFixedSize(true)
+    private fun startAnimation(@RawRes animationRes: Int) {
+        binding.loader.apply {
+            isVisible = true
+            setMinFrame(50)
+            setMaxFrame(112)
+            speed = 1.5f
+            setAnimation(animationRes)
+            playAnimation()
+        }
+        binding.loader.addValueCallback(
+            KeyPath("icon_circle", "**"),
+            LottieProperty.COLOR_FILTER
+        ) {
+            PorterDuffColorFilter(Color.LTGRAY, PorterDuff.Mode.SRC_ATOP)
         }
     }
 
     private fun displayError() {
-        //binding.group.isVisible = false
-        Snackbar.make(requireView(), R.string.an_error_occurred, Snackbar.LENGTH_SHORT).show()
+        startAnimation(R.raw.error_data)
+        binding.scrollView.isVisible = false
+        Snackbar.make(
+            requireView(),
+            R.string.an_error_occurred,
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     private fun displayLoading() {
-        //binding.group.isVisible = false
+        startAnimation(R.raw.data_2)
+        binding.scrollView.isVisible = false
+    }
+
+    private fun stopAnimation() {
+        binding.loader.apply {
+            cancelAnimation()
+            isVisible = false
+        }
     }
 
     override fun onDestroyView() {

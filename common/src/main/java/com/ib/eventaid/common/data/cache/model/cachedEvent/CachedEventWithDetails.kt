@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.ib.eventaid.common.data.cache.model.cachedTaxonomy.CachedTaxonomy
 import com.ib.eventaid.common.data.cache.model.cachedVenue.CachedVenue
 import com.ib.eventaid.common.domain.model.event.Event
 import com.ib.eventaid.common.domain.model.event.Media
@@ -15,19 +16,19 @@ import com.ib.eventaid.common.utils.DateTimeUtils
     tableName = "events",
     foreignKeys = [
 
-//        ForeignKey(
-//            entity = CachedEventPerformer::class,
-//            parentColumns = ["performerId"],
-//            childColumns = ["performerId"],
-//            onDelete = ForeignKey.CASCADE
-//        ),
-
         ForeignKey(
             entity = CachedVenue::class,
             parentColumns = ["venueId"],
             childColumns = ["venueId"],
             onDelete = ForeignKey.CASCADE
         ),
+
+//        ForeignKey(
+//            entity = CachedEventPerformer::class,
+//            parentColumns = ["performerId"],
+//            childColumns = ["performerId"],
+//            onDelete = ForeignKey.CASCADE
+//        ),
 
         /*ForeignKey(
             entity = CachedTaxonomy::class,
@@ -46,6 +47,7 @@ import com.ib.eventaid.common.utils.DateTimeUtils
 data class CachedEventWithDetails(
     @PrimaryKey val eventId: Int,
     val venueId: Int,
+    val performerId: List<Int>,
     val title: String,
     val type: String,
     val description: String,
@@ -60,7 +62,8 @@ data class CachedEventWithDetails(
     val lowestSgBasePriceGoodDeals: Int,
     val dateTimeLocal: String,
     val visibleUntilUtc: String,
-    val venueName: String
+    val venueName: String,
+    val performerName:List<String>
 ) {
     companion object {
         fun fromDomain(domainModel: EventWithDetails): CachedEventWithDetails {
@@ -87,7 +90,9 @@ data class CachedEventWithDetails(
                 dateTimeLocal = domainModel.dateTimeLocal.toString(),
                 visibleUntilUtc = domainModel.visibleUntilUtc.toString(),
                 venueName = venue.name,
-                type = domainModel.type
+                type = domainModel.type,
+                performerId = performers.map { it.id },
+                performerName = performers.map { it.name }
             )
         }
     }
@@ -95,18 +100,17 @@ data class CachedEventWithDetails(
     fun toDomain(
         venue: CachedVenue,
         performer: List<CachedEventPerformer>,
-        //taxonomy: List<CachedTaxonomy>,
+        taxonomy: List<CachedTaxonomy>,
         stats: CachedStats,
         images: List<CachedImage>
     ): EventWithDetails {
         return EventWithDetails(
             id = eventId,
             title = title,
-            details = mapDetails(venue, performer, stats),
+            details = mapDetails(venue, taxonomy, performer, stats),
             dateTimeLocal = DateTimeUtils.parse(dateTimeLocal),
             visibleUntilUtc = DateTimeUtils.parse(visibleUntilUtc),
             type = type,
-//            image = images.map { it.image }
             media = Media(
                 images = images.map { it.toDomain() }
             )
@@ -115,7 +119,6 @@ data class CachedEventWithDetails(
 
     fun toEventDomain(
         images: List<CachedImage>,
-        performer: List<CachedEventPerformer>,
     ): Event {
         return Event(
             id = eventId,
@@ -125,13 +128,13 @@ data class CachedEventWithDetails(
             //image = images.map { it.image }
             //image = image.image
             media = Media(images = images.map { it.toDomain() }),
-            performer = performer.map { it.toDomain() }
-        )
+
+            )
     }
 
     private fun mapDetails(
         venue: CachedVenue,
-        //taxonomy: List<CachedTaxonomy>,
+        taxonomy: List<CachedTaxonomy>,
         performer: List<CachedEventPerformer>,
         stats: CachedStats
     ): Details {
@@ -139,7 +142,7 @@ data class CachedEventWithDetails(
             description = description,
             venue = venue.toDomain(),
             performers = performer.map { it.toDomain() },
-            //taxonomy = taxonomy.map {it.toDomain()},
+            taxonomy = taxonomy.map {it.toDomain()},
             stats = stats.toDomain()
         )
     }

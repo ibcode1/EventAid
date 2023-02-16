@@ -6,8 +6,8 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class ApiGenre(
-    @Json(name = "id") val id: Int,
-    @Json(name = "name") val name: String,
-    @Json(name = "primary") val primary: Boolean,
-    @Json(name = "slug") val slug: String
+    @field:Json(name = "id") val id: Int,
+    @field:Json(name = "name") val name: String,
+    @field:Json(name = "primary") val primary: Boolean,
+    @field:Json(name = "slug") val slug: String
 )

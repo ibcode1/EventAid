@@ -11,6 +11,8 @@
   <include app:graph="@navigation/nav_search" />
   <include app:graph="@navigation/nav_sharing" />
   <include app:graph = "@navigation/nav_performers"/>
+  <include app:graph = "@navigation/nav_newnav"/>
+  <include app:graph = "@navigation/nav_report"/>
 
   <!--<fragment
     android:id="@+id/search"

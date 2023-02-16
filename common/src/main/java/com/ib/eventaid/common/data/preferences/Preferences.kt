@@ -26,4 +26,7 @@ interface Preferences {
     fun getMaxDistanceAllowedToGetEvents(): String
 
     fun putMaxDistanceAllowedToGetEvents(distance: String)
+
+    fun getPerformerId():Int
+    fun putPerformerId(performerId: Int)
 }

@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import com.ib.eventaid.common.data.cache.model.cachedEvent.CachePerformerAggregate
+import com.ib.eventaid.common.data.cache.model.cachedEvent.CachedEventAggregate
 import com.ib.eventaid.common.data.cache.model.cachedEvent.CachedEventPerformer
 import io.reactivex.Flowable
 
@@ -19,9 +20,17 @@ interface PerformerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(performers: List<CachedEventPerformer>)
 
+
     @Transaction
     @Query("SELECT * FROM performers WHERE performerId IS :performerId")
     suspend fun getPerformer(performerId:Int):CachedEventPerformer
+
+    @Query("SELECT * FROM performers WHERE eventId IS :eventId")
+    abstract suspend fun getEvent(eventId:Int): CachePerformerAggregate
+
+
+    @Query("SELECT * FROM performers WHERE performerId IS :performerId")
+    suspend fun getEventPerformers(performerId:List<Int>):List<CachedEventPerformer>
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

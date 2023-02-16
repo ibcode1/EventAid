@@ -17,4 +17,14 @@
     <string name="performers">Perfomer</string>
     <string name="header_description">Description</string>
     <string name="add_to_favorites">Save</string>
+    <string name="Taxonomies">taxonomies</string>
+    <string name="head_venueInfo">Venue Info</string>
+    <string name="venueName">Venue</string>
+    <string name="address">Address</string>
+    <string name="state">State</string>
+    <string name="venueCapacity">Capacity</string>
+    <string name="head_Info">About Event</string>
+    <string name="performer">Performer(s)</string>
+    <string name="upcoming">Upcoming Events: %$d</string>
+    <string name="nav_to_onboarding">navigateToOnboarding</string>
 </resources>

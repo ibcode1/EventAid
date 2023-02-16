@@ -10,7 +10,8 @@ class UiPerformerMapper @Inject constructor():UiMapper<Performer, UIPerformer> {
         return UIPerformer(
             id = input.id,
             name = input.name,
-            image = input.image
+            image = input.image,
+            upcomingEvent = input.numUpcomingEvents
         )
     }
 }

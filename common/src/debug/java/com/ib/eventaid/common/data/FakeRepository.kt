@@ -10,6 +10,7 @@ import com.ib.eventaid.common.domain.model.pagination.Pagination
 import com.ib.eventaid.common.domain.model.performer.Performer
 import com.ib.eventaid.common.domain.model.search.SearchParameters
 import com.ib.eventaid.common.domain.model.search.SearchResults
+import com.ib.eventaid.common.domain.model.taxonomy.Taxonomy
 import com.ib.eventaid.common.domain.model.venue.Venue
 import com.ib.eventaid.common.domain.repositories.EventRepository
 import io.reactivex.BackpressureStrategy
@@ -73,13 +74,13 @@ class FakeRepository @Inject constructor() : EventRepository {
             lowestSgBasePrice = 30,
             lowestSgBasePriceGoodDeals = 30
         ),
-//        taxonomy = listOf(
-//            Taxonomy(
-//                id = 1000000,
-//                name = "sports",
-//                rank = 0
-//            )
-//        ),
+        taxonomy = listOf(
+            Taxonomy(
+                id = 1000000,
+                name = "sports",
+                rank = 0
+            )
+        ),
         venue = venue,
         performers = listOf(performer)
     )
@@ -107,13 +108,13 @@ class FakeRepository @Inject constructor() : EventRepository {
             lowestSgBasePrice = 125,
             lowestSgBasePriceGoodDeals = 125
         ),
-//        taxonomy = listOf(
-//            Taxonomy(
-//                id = 1000000,
-//                name = "sports",
-//                rank = 0
-//            )
-//        ),
+        taxonomy = listOf(
+            Taxonomy(
+                id = 1000000,
+                name = "sports",
+                rank = 0
+            )
+        ),
         venue = venue,
         performers = listOf(performer)
     )
@@ -156,6 +157,18 @@ class FakeRepository @Inject constructor() : EventRepository {
         mutableLocalEvents.addAll(events)
     }
 
+    override suspend fun getPerformerEvents(performerId: Int): Flowable<List<Event>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun requestMorePerformerEvents(
+        performerId: Int,
+        pageToLoad: Int,
+        numberOfItems: Int
+    ): PaginatedEvents {
+        TODO("Not yet implemented")
+    }
+
 
     override suspend fun getEventTypes(): List<String> {
         return listOf("nba")
@@ -164,7 +177,6 @@ class FakeRepository @Inject constructor() : EventRepository {
     override suspend fun getEvent(eventId: Int): EventWithDetails {
         TODO("Not yet implemented")
     }
-
 
     override fun searchCachedEventsBy(searchParameters: SearchParameters): Flowable<SearchResults> {
         val (title, type, performer) = searchParameters
@@ -207,7 +219,6 @@ class FakeRepository @Inject constructor() : EventRepository {
     private fun EventWithDetails.toEvent(): Event {
         return Event(
             title, id, dateTimeLocal, visibleUntilUtc, media,
-            performer = listOf(performer)
         )
     }
 }

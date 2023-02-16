@@ -9,5 +9,22 @@
     android:id="@+id/searchFragment"
     android:name="com.ib.eventaid.search.presentation.SearchFragment"
     android:label="@string/search_screen_label"
-    tools:layout="@layout/fragment_search" />
+    tools:layout="@layout/fragment_search">
+      <deepLink app:uri="eventiad://searchEvents"/>
+
+        <action
+          android:id="@+id/action_searchedEvent_to_details"
+          app:destination="@+id/searchDetailsFragment"/>
+  </fragment>
+
+  <fragment
+      android:id="@+id/searchDetailsFragment"
+      android:name="com.ib.eventaid.search.presentation.searchdetails.SearchDetailsFragment"
+      android:label="@string/searched_event_details_screen_label"
+      tools:layout="@layout/search_fragment_details">
+
+    <argument
+        android:name="id"
+        app:argType="integer" />
+  </fragment>
 </navigation>

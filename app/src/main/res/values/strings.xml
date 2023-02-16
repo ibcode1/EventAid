@@ -15,5 +15,11 @@
     <string name="search_screen_label">Find your Event</string>
     <string name="an_error_occurred">An error occurred.Please try again</string>
     <string name="stars">Performer</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="send_report">Send Report</string>
+    <string name="report_details">Report Details</string>
+    <string name="category">Category</string>
+    <string name="report_screen_label">Report an issue</string>
+    <string name="report">Report</string>
 
 </resources>

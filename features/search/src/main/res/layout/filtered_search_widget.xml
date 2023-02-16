@@ -22,7 +22,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/small_margin"
-      app:layout_constraintEnd_toStartOf="@+id/age_dropdown_input_layout"
+      app:layout_constraintEnd_toEndOf="@+id/search"
       app:layout_constraintHorizontal_bias="0.5"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/search">
@@ -35,21 +35,6 @@
         android:inputType="none" />
   </com.google.android.material.textfield.TextInputLayout>
 
-
-  <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/age_dropdown_input_layout"
-      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="@dimen/small_margin"
-      android:layout_marginBottom="@dimen/small_margin"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.5"
-      app:layout_constraintStart_toEndOf="@+id/type_dropdown_input_layout"
-      app:layout_constraintTop_toBottomOf="@+id/search">
-
-  </com.google.android.material.textfield.TextInputLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
