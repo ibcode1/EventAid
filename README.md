@@ -17,4 +17,4 @@ An app that allows users to see or search for events near them.
 - [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android) for Dependency Injection
 - [OkHttp](https://github.com/square/okhttp) and [Retrofit](https://github.com/square/retrofit) for network operations
 - [SeatGeekApi](https://platform.seatgeek.com/) for events
--[MVI](https://medium.com/swlh/mvi-architecture-with-android-fcde123e3c4a) design pattern
+- [MVI](https://medium.com/swlh/mvi-architecture-with-android-fcde123e3c4a) design pattern
