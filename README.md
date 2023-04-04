@@ -18,3 +18,4 @@ An app that allows users to see or search for events near them.
 - [OkHttp](https://github.com/square/okhttp) and [Retrofit](https://github.com/square/retrofit) for network operations
 - [SeatGeekApi](https://platform.seatgeek.com/) for events
 - [MVI](https://medium.com/swlh/mvi-architecture-with-android-fcde123e3c4a) design pattern
+- [Modularization](https://proandroiddev.com/the-abc-of-modularization-for-android-in-2021-e7b3fbe29fca)
